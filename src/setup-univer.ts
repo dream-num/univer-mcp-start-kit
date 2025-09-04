@@ -1,3 +1,7 @@
+import { UniverMCPPlugin } from '@univerjs-pro/mcp'
+import { UniverMCPUIPlugin } from '@univerjs-pro/mcp-ui'
+import univerMCPUIEnUS from '@univerjs-pro/mcp-ui/locale/en-US'
+import { UniverSheetMCPPlugin } from '@univerjs-pro/sheets-mcp'
 import { createUniver, defaultTheme, LocaleType, LogLevel, merge, UniverInstanceType } from '@univerjs/presets'
 import { UniverSheetsAdvancedPreset } from '@univerjs/presets/preset-sheets-advanced'
 import sheetsAdvancedEnUs from '@univerjs/presets/preset-sheets-advanced/locales/en-US'
@@ -22,6 +26,7 @@ import sheetsSortEnUs from '@univerjs/presets/preset-sheets-sort/locales/en-US'
 import { UniverSheetsThreadCommentPreset } from '@univerjs/presets/preset-sheets-thread-comment'
 import sheetsThreadCommentEnUs from '@univerjs/presets/preset-sheets-thread-comment/locales/en-US'
 import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
+
 import UniverSheetsCrosshairHighlightEnUS from '@univerjs/sheets-crosshair-highlight/locale/en-US'
 import { UniverSheetsZenEditorPlugin } from '@univerjs/sheets-zen-editor'
 import sheetsZenEditorEnUs from '@univerjs/sheets-zen-editor/locale/en-US'
@@ -37,6 +42,7 @@ import '@univerjs/presets/lib/styles/preset-sheets-drawing.css'
 import '@univerjs/presets/lib/styles/preset-sheets-find-replace.css'
 import '@univerjs/presets/lib/styles/preset-sheets-hyper-link.css'
 import '@univerjs/presets/lib/styles/preset-sheets-sort.css'
+import '@univerjs-pro/mcp-ui/lib/index.css'
 
 export function setupUniver() {
   const universerEndpoint = window.location.host
@@ -61,6 +67,7 @@ export function setupUniver() {
         sheetsSortEnUs,
         sheetsZenEditorEnUs,
         UniverSheetsCrosshairHighlightEnUS,
+        univerMCPUIEnUS,
       ),
     },
     collaboration,
@@ -96,11 +103,13 @@ export function setupUniver() {
     plugins: [
       UniverSheetsCrosshairHighlightPlugin,
       UniverSheetsZenEditorPlugin,
+      UniverMCPPlugin,
+      [UniverMCPUIPlugin, {
+        showDeveloperTools: true,
+      }],
+      UniverSheetMCPPlugin,
     ],
   })
-
-  // univer.registerPlugin(UniverSheetsChartPlugin)
-  // univer.registerPlugin(UniverSheetsChartUIPlugin)
 
   univer.createUnit(UniverInstanceType.UNIVER_SHEET, {})
 

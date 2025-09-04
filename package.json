@@ -1,9 +1,9 @@
 {
-  "name": "univer-sheet-start-kit",
+  "name": "univer-mcp-start-kit",
   "type": "module",
-  "version": "0.8.1",
+  "version": "0.10.6-experimental.20250904-9591d16",
   "private": true,
-  "description": "A starter kit for Univer Sheet",
+  "description": "A Model Context Protocol (MCP) server starter kit for Univer.",
   "scripts": {
     "prepare": "simple-git-hooks",
     "dev": "vite --host",
@@ -12,9 +12,12 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@univerjs/presets": "0.8.1",
-    "@univerjs/sheets-crosshair-highlight": "0.8.1",
-    "@univerjs/sheets-zen-editor": "0.8.1"
+    "@univerjs-pro/mcp": "0.10.6-experimental.20250904-9591d16",
+    "@univerjs-pro/mcp-ui": "0.10.6-experimental.20250904-9591d16",
+    "@univerjs-pro/sheets-mcp": "0.10.6-experimental.20250904-9591d16",
+    "@univerjs/presets": "0.10.6-experimental.20250904-9591d16",
+    "@univerjs/sheets-crosshair-highlight": "0.10.6-experimental.20250904-9591d16",
+    "@univerjs/sheets-zen-editor": "0.10.6-experimental.20250904-9591d16"
   },
   "devDependencies": {
     "@antfu/eslint-config": "4.14.1",

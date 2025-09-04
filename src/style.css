@@ -6,41 +6,11 @@ body {
   overflow: hidden;
 }
 
-:root {
-  --toolbar-height: 100px;
-}
-
 #app {
   height: 100%;
-  padding: 24px;
-  box-sizing: border-box;
-}
-
-#toolbar {
-  height: var(--toolbar-height);
-  display: flex;
-  gap: 0.5rem 1rem;
-  flex-wrap: wrap;
-  overflow: auto;
-}
-#toolbar a {
-  height: 28px;
-  padding: 0 1rem;
-  font-size: 0.875rem;
-  line-height: 28px;
-  background-color: #fff;
-  border: 1px solid #b4b4b4;
-  border-radius: 4px;
-  display: block;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-#toolbar a:hover {
-  color: #274fee;
-  border-color: #274fee;
 }
 
 #univer {
-  height: calc(100% - var(--toolbar-height));
+  height: 100%;
   border: 1px solid #ececec;
 }
