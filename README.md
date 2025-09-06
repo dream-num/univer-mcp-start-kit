@@ -294,7 +294,7 @@ This project is licensed under the [Apache 2.0 License](LICENSE).
 - [Univer MCP Repository](https://github.com/dream-num/univer-mcp)
 - [Univer GitHub Repository](https://github.com/dream-num/univer)
 - [Univer Documentation](https://docs.univer.ai)
-- [Univer Examples](https://univer.ai/examples)
+- [Univer Examples](https://docs.univer.ai/showcase)
 - [Get Univer License](https://univer.ai/license)
 - [Model Context Protocol](https://spec.modelcontextprotocol.io/)
 
