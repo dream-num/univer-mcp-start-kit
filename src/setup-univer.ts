@@ -1,3 +1,4 @@
+import type { IDisposable } from '@univerjs/presets'
 import { UniverMCPPlugin } from '@univerjs-pro/mcp'
 import { UniverMCPUIPlugin } from '@univerjs-pro/mcp-ui'
 import univerMCPUIEnUS from '@univerjs-pro/mcp-ui/locale/en-US'
@@ -117,23 +118,26 @@ export function setupUniver() {
     ],
   })
 
-  univerAPI.addEvent(univerAPI.Event.McpConnectionStatusChanged, (event) => {
+  const cancels: IDisposable[] = []
+  cancels.push(univerAPI.addEvent(univerAPI.Event.McpConnectionStatusChanged, (event) => {
     // eslint-disable-next-line no-console
     console.log('MCP Connection status:', event.status, event.error)
-  })
-  univerAPI.addEvent(univerAPI.Event.McpToolCallReceived, (event) => {
+  }))
+  cancels.push(univerAPI.addEvent(univerAPI.Event.McpToolCallReceived, (event) => {
     // eslint-disable-next-line no-console
     console.log(`MCP Received tool call: ${event.toolName}`, event.parameters)
-  })
-  univerAPI.addEvent(univerAPI.Event.McpToolCallExecuted, (event) => {
+  }))
+  cancels.push(univerAPI.addEvent(univerAPI.Event.McpToolCallExecuted, (event) => {
     // eslint-disable-next-line no-console
     console.log(`MCP Tool ${event.toolName} executed successfully:`, event.result)
-  })
-  univerAPI.addEvent(univerAPI.Event.McpToolCallFailed, (event) => {
+  }))
+  cancels.push(univerAPI.addEvent(univerAPI.Event.McpToolCallFailed, (event) => {
     console.error(`MCP Tool ${event.toolName} failed:`, event.error)
-  })
+  }))
+
+  // when you want to unsubscribe the event, call dispose
+  // cancels.forEach((c) => c.dispose())
 
   univer.createUnit(UniverInstanceType.UNIVER_SHEET, {})
-
   return univerAPI
 }
