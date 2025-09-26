@@ -30,6 +30,7 @@ import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair
 import UniverSheetsCrosshairHighlightEnUS from '@univerjs/sheets-crosshair-highlight/locale/en-US'
 import { UniverSheetsZenEditorPlugin } from '@univerjs/sheets-zen-editor'
 import sheetsZenEditorEnUs from '@univerjs/sheets-zen-editor/locale/en-US'
+import '@univerjs-pro/mcp/facade'
 
 import '@univerjs/presets/lib/styles/preset-sheets-core.css'
 import '@univerjs/presets/lib/styles/preset-sheets-advanced.css'
@@ -103,12 +104,33 @@ export function setupUniver() {
     plugins: [
       UniverSheetsCrosshairHighlightPlugin,
       UniverSheetsZenEditorPlugin,
-      UniverMCPPlugin,
+      [UniverMCPPlugin, {
+        // ticketServerUrl: '',
+        // mcpServerUrl: '',
+      }],
       [UniverMCPUIPlugin, {
+        // enable guide ui
         showDeveloperTools: true,
+        // showStatus: true
       }],
       UniverSheetMCPPlugin,
     ],
+  })
+
+  univerAPI.addEvent(univerAPI.Event.McpConnectionStatusChanged, (event) => {
+    // eslint-disable-next-line no-console
+    console.log('MCP Connection status:', event.status, event.error)
+  })
+  univerAPI.addEvent(univerAPI.Event.McpToolCallReceived, (event) => {
+    // eslint-disable-next-line no-console
+    console.log(`MCP Received tool call: ${event.toolName}`, event.parameters)
+  })
+  univerAPI.addEvent(univerAPI.Event.McpToolCallExecuted, (event) => {
+    // eslint-disable-next-line no-console
+    console.log(`MCP Tool ${event.toolName} executed successfully:`, event.result)
+  })
+  univerAPI.addEvent(univerAPI.Event.McpToolCallFailed, (event) => {
+    console.error(`MCP Tool ${event.toolName} failed:`, event.error)
   })
 
   univer.createUnit(UniverInstanceType.UNIVER_SHEET, {})
