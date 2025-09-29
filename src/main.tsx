@@ -1,7 +1,6 @@
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { CopilotUI } from './chat-ui/copilot'
-import { setupUniver } from './setup-univer'
+import { conversationId, setupUniver } from './setup-univer'
 import './style.css'
 import '@copilotkit/react-ui/styles.css'
 import './copilotkit.css'
@@ -15,4 +14,4 @@ function main() {
 
 main()
 
-createRoot(document.getElementById('chat-ui')!).render(<CopilotUI />)
+createRoot(document.getElementById('chat-ui')!).render(<CopilotUI conversationId={conversationId} />)

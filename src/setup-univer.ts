@@ -1,3 +1,4 @@
+import { randomUUID } from '@copilotkit/shared'
 import { UniverMCPPlugin } from '@univerjs-pro/mcp'
 import { UniverMCPUIPlugin } from '@univerjs-pro/mcp-ui'
 import univerMCPUIEnUS from '@univerjs-pro/mcp-ui/locale/en-US'
@@ -25,12 +26,12 @@ import { UniverSheetsSortPreset } from '@univerjs/presets/preset-sheets-sort'
 import sheetsSortEnUs from '@univerjs/presets/preset-sheets-sort/locales/en-US'
 import { UniverSheetsThreadCommentPreset } from '@univerjs/presets/preset-sheets-thread-comment'
 import sheetsThreadCommentEnUs from '@univerjs/presets/preset-sheets-thread-comment/locales/en-US'
-import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
 
+import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight'
 import UniverSheetsCrosshairHighlightEnUS from '@univerjs/sheets-crosshair-highlight/locale/en-US'
 import { UniverSheetsZenEditorPlugin } from '@univerjs/sheets-zen-editor'
-import sheetsZenEditorEnUs from '@univerjs/sheets-zen-editor/locale/en-US'
 
+import sheetsZenEditorEnUs from '@univerjs/sheets-zen-editor/locale/en-US'
 import '@univerjs/presets/lib/styles/preset-sheets-core.css'
 import '@univerjs/presets/lib/styles/preset-sheets-advanced.css'
 import '@univerjs/presets/lib/styles/preset-sheets-filter.css'
@@ -43,6 +44,8 @@ import '@univerjs/presets/lib/styles/preset-sheets-find-replace.css'
 import '@univerjs/presets/lib/styles/preset-sheets-hyper-link.css'
 import '@univerjs/presets/lib/styles/preset-sheets-sort.css'
 import '@univerjs-pro/mcp-ui/lib/index.css'
+
+export const conversationId = randomUUID()
 
 export function setupUniver() {
   const universerEndpoint = window.location.host
@@ -103,9 +106,11 @@ export function setupUniver() {
     plugins: [
       UniverSheetsCrosshairHighlightPlugin,
       UniverSheetsZenEditorPlugin,
-      UniverMCPPlugin,
+      [UniverMCPPlugin, {
+        sessionId: conversationId,
+      }],
       [UniverMCPUIPlugin, {
-        showDeveloperTools: true,
+        // showDeveloperTools: true,
       }],
       UniverSheetMCPPlugin,
     ],

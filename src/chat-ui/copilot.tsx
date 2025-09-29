@@ -1,6 +1,6 @@
-import { CopilotKit, useCopilotContext } from '@copilotkit/react-core'
+import { CopilotKit, useCoAgent, useCopilotContext } from '@copilotkit/react-core'
 import { CopilotPopup } from '@copilotkit/react-ui'
-import { isValidUUID, randomUUID } from '@copilotkit/shared'
+import { isValidUUID } from '@copilotkit/shared'
 import React from 'react'
 
 export function CopilotChat() {
@@ -17,34 +17,49 @@ export function CopilotChat() {
   )
 }
 
-export function CopilotProvider({ children }: { children: React.ReactNode }) {
+export function CopilotProvider({ children, conversationId }: { children: React.ReactNode, conversationId: string }) {
   return (
     <CopilotKit
       runtimeUrl="http://localhost:4000/api/copilotkit"
       agent="spreadsheet_act" // the name of the agent you want to use
       publicLicenseKey="ck_pub_e544191cde8b150ef1f27847daeef392"
     >
-      <AgentSessionUUIDNormalizer />
+      <AgentSessionUUIDNormalizer conversationId={conversationId} />
       {children}
     </CopilotKit>
   )
 }
 
-export function CopilotUI() {
+export function CopilotUI({ conversationId }: { conversationId: string }) {
   return (
-    <CopilotProvider>
+    <CopilotProvider conversationId={conversationId}>
       <CopilotChat />
     </CopilotProvider>
   )
 }
 
-function AgentSessionUUIDNormalizer() {
+interface AgentSession {
+  conversation_id: string
+}
+
+function AgentSessionUUIDNormalizer({ conversationId }: { conversationId: string }) {
   const { agentSession, setAgentSession } = useCopilotContext()
+  const { setState } = useCoAgent<AgentSession>({
+    name: 'spreadsheet_act',
+    initialState: {
+      conversation_id: conversationId,
+    },
+  })
   React.useEffect(() => {
     if (agentSession?.threadId && !isValidUUID(agentSession.threadId)) {
+      const id = conversationId
       setAgentSession({
         ...agentSession,
-        threadId: randomUUID(),
+        threadId: id,
+      })
+
+      setState({
+        conversation_id: id,
       })
     }
   }, [agentSession, setAgentSession])
