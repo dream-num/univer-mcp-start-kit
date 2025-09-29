@@ -1,0 +1,32 @@
+:root {
+  /* Align CopilotKit with the app’s look */
+  --copilot-kit-primary-color: #1f7aee; /* accent */
+  --copilot-kit-contrast-color: #ffffff;
+  --copilot-kit-background-color: #ffffff;
+  --copilot-kit-secondary-color: #ffffff;
+  --copilot-kit-secondary-contrast-color: #1a1a1a;
+  --copilot-kit-separator-color: #e5e7eb; /* light gray divider */
+  --copilot-kit-input-background-color: #fbfbfb;
+}
+
+/* Ensure layout stability inside the popup */
+.copilotKitPopup,
+.copilotKitChat,
+.copilotKitWindow,
+.copilotKitPopup * {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+/* Keep the window above the spreadsheet toolbars */
+.copilotKitPopup {
+  z-index: 1000;
+}
+.copilotKitWindow {
+  z-index: 1001;
+}
+
+/* Slightly tighter spacing for the input */
+.copilotKitInput {
+  width: 92%;
+}
